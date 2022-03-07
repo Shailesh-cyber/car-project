@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Contact
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
 
 
 def inquiry(request):
@@ -26,6 +28,17 @@ def inquiry(request):
         contact = Contact(first_name=first_name, last_name=last_name, car_id=car_id, customer_need=customer_need,
                           car_title=car_title, city=city, state=state, email=email, phone=phone, message=message,
                           user_id=user_id)
+
+        admin_info = User.objects.get(is_superuser=True)
+        admin_email = admin_info.email
+        send_mail(
+            'New Car Inquiry',
+            'You have a new inquiry' + car_title + '. PLease login to admin panel to check!',
+            '171037.cse7@gitmgurgaon.com',
+            [admin_email],
+            fail_silently=False,
+        )
+
         contact.save()
         messages.success(request, "Your request has been submitted!")
         return redirect('/cars/'+car_id)
