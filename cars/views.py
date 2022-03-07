@@ -29,11 +29,6 @@ def car_detail(request, id):
 def search(request):
     cars = Car.objects.order_by('-created_date')
 
-    # model_search = Car.objects.values_list('model', flat=True).distinct()
-    # city_search = Car.objects.values_list('city', flat=True).distinct()             #used values_list to eliminate duplicate values   #since values_list pass a tuple value not dictonaries so
-    # year_search = Car.objects.values_list('year', flat=True).distinct()      #                                                         #i've used {{city}} in home.html not {{city.city}}
-    # body_style_search = Car.objects.values_list('body_style', flat=True).distinct()     #                                               #so {{city}} will be usede when value is passed in tuple form
-
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:
