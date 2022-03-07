@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     'ckeditor',
     'pages',
     'cars',
+    'contacts',
     'accounts',
+
+    #soical-login
     'django.contrib.sites',
     'allauth',
     'allauth.account',
